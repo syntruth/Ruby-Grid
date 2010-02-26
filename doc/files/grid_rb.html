@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: grid.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>grid.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>grid.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Fri Aug 21 15:08:40 -0400 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="../classes/Grid.html">Grid</a> Class for Games or whatever else
+you can think of. By Randy Carnahan, released to the Public Domain.
+</p>
+<ul>
+<li>Version 1.0b - 7/13/2006
+
+</li>
+<li>Version 1.0 - 7/19/2006 - Last Lua version
+
+</li>
+<li>Version 1.0RB - 9/26/2007 - Ruby Version
+
+</li>
+</ul>
+<p>
+Caveats:
+</p>
+<pre>
+  * The Grid object is data agnostic.  It doesn't care what
+    kind of data you store in a cell. This is meant to be,
+    for abstraction's sake. You could even store functions.
+  * The class defines -no- display methods. Either sub-class
+    the Grid class to add your own, or define functions that
+    call the get_*() methods.
+  * Grid coordinates are always x,y number pairs. X is the
+    vertical, starting at the top left, and Y is the
+    horizontal, also starting at the top left. Hence, the
+    top-left cell is always 0,0. One cell to the right is
+    0,1. One cell down is 1,0.
+  * Some Grid constants (OUTSIDE, NOT_VALID, NIL_VALUE) are
+    not numbers, but strings, just in case number data is to
+    be stored in a cell.
+</pre>
+<p>
+Example:
+</p>
+<pre>
+  require &quot;grid&quot;
+  g = Grid::create(8, 8, &quot; &quot;)
+  c = [[4, 4, &quot;O&quot;], [4, 5, &quot;X&quot;], [5, 4, &quot;X&quot;], [5, 5, &quot;O&quot;]]
+  g.populate(c)
+  g.traverse(0, 0, Grid::BOTTOM_RIGHT) do |x, y, value|
+    puts &quot;#{x}, #{y}: #{value}&quot;
+  end
+  g.resize(4, 4)
+  g.get_cell(3, 3)
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

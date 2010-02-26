@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Grid::GridBase</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Grid::GridBase</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/grid_rb.html">
+                grid.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="GridBase.html">GridBase</a> Class Definition
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000005">get_cell</a>&nbsp;&nbsp;
+      <a href="#M000006">get_cells</a>&nbsp;&nbsp;
+      <a href="#M000017">get_column</a>&nbsp;&nbsp;
+      <a href="#M000011">get_contents</a>&nbsp;&nbsp;
+      <a href="#M000013">get_neighbor</a>&nbsp;&nbsp;
+      <a href="#M000014">get_neighbors</a>&nbsp;&nbsp;
+      <a href="#M000016">get_row</a>&nbsp;&nbsp;
+      <a href="#M000012">get_vector</a>&nbsp;&nbsp;
+      <a href="#M000004">is_valid?</a>&nbsp;&nbsp;
+      <a href="#M000003">new</a>&nbsp;&nbsp;
+      <a href="#M000010">populate</a>&nbsp;&nbsp;
+      <a href="#M000009">reset_all</a>&nbsp;&nbsp;
+      <a href="#M000008">reset_cell</a>&nbsp;&nbsp;
+      <a href="#M000015">resize</a>&nbsp;&nbsp;
+      <a href="#M000007">set_cell</a>&nbsp;&nbsp;
+      <a href="#M000018">traverse</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(sizex=4, sizey=4, def_value=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="GridBase.html">GridBase</a> constructor.
+</p>
+<table>
+<tr><td valign="top"><tt>sizex</tt> and <tt>sizey</tt>:</td><td>These set the desired size of the grid, 4 by default.
+
+</td></tr>
+<tr><td valign="top"><tt>def_value</tt>:</td><td>The default data to store in a cell, nil by default.
+
+</td></tr>
+</table>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 68</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">sizex</span>=<span class="ruby-value">4</span>, <span class="ruby-identifier">sizey</span>=<span class="ruby-value">4</span>, <span class="ruby-identifier">def_value</span>=<span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-ivar">@grid</span> = []
+
+      <span class="ruby-comment cmt"># Default Grid size is 4x4.</span>
+      <span class="ruby-identifier">sizex</span> = <span class="ruby-value">4</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sizex</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">sizex</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">sizey</span> = <span class="ruby-value">4</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sizey</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">sizey</span>.<span class="ruby-identifier">nil?</span>
+
+      <span class="ruby-ivar">@size_x</span> = <span class="ruby-identifier">sizex</span>
+      <span class="ruby-ivar">@size_y</span> = <span class="ruby-identifier">sizey</span>
+
+      <span class="ruby-ivar">@def_value</span> = <span class="ruby-identifier">def_value</span>
+
+      <span class="ruby-comment cmt"># Build the grid and insert the default values.</span>
+      <span class="ruby-ivar">@size_x</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@grid</span>.<span class="ruby-identifier">push</span>([])
+        <span class="ruby-ivar">@size_y</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>].<span class="ruby-identifier">push</span>(<span class="ruby-identifier">def_value</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">get_cell</span><span class="method-args">(x, y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the data in a given x,y cell. Returns nil if the cell is not valid.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 109</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_cell</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">get_cells</span><span class="method-args">(cells) {|cell_data| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method will return a set of cell data in a table. The
+&#8216;cells&#8217; argument should be an array of x,y pairs of the cells
+being requested.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 116</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_cells</span>(<span class="ruby-identifier">cells</span>) <span class="ruby-comment cmt"># :yields: cell_data</span>
+      <span class="ruby-identifier">data</span> = []
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cells</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Array</span>
+
+      <span class="ruby-identifier">cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+            <span class="ruby-keyword kw">yield</span> <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>]
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">data</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>])
+          <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">block_given?</span>
+
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">get_column</span><span class="method-args">(y) {|cell_data| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns an array of all values in a given column
+&#8216;y&#8217; value. If given a block, then the data in each cell in the
+column is passed to the block.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 339</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_column</span>(<span class="ruby-identifier">y</span>) <span class="ruby-comment cmt"># :yields: cell_data</span>
+      <span class="ruby-identifier">col</span> = []
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@size_y</span>)
+        <span class="ruby-ivar">@size_x</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+            <span class="ruby-keyword kw">yield</span> <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>]
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">col</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>])
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">col</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">block_given?</span>
+
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">get_contents</span><span class="method-args">(no_default=false) {|x, y, cell_data| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns the entire grid&#8216;s contents in a flat array
+suitable for feeding to <a href="GridBase.html#M000010">populate</a>()
+above. Useful for recreating a grid layout. If the <tt>no_default</tt>
+argument is non-false, then the returned data array only contains elements
+who&#8216;s cells are not the default value. Returns <tt>nil</tt> if a
+block is given.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 192</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_contents</span>(<span class="ruby-identifier">no_default</span>=<span class="ruby-keyword kw">false</span>) <span class="ruby-comment cmt"># :yields: x, y, cell_data</span>
+      <span class="ruby-identifier">data</span> = []
+      <span class="ruby-identifier">cell_obj</span> = <span class="ruby-keyword kw">nil</span>
+
+      <span class="ruby-ivar">@size_x</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@size_y</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">cell_obj</span> = <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>]
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">no_default</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">cell_obj</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@def_value</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+              <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">cell_obj</span>
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">data</span>.<span class="ruby-identifier">push</span>([<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">cell_obj</span>])
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">block_given?</span>
+
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">get_neighbor</span><span class="method-args">(x, y, vector)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets a cell&#8216;s neighbor in a given vector.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 233</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_neighbor</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">vector</span>)
+      <span class="ruby-identifier">vx</span>, <span class="ruby-identifier">vy</span> = <span class="ruby-identifier">get_vector</span>(<span class="ruby-identifier">vector</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">vx</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">vy</span>
+        <span class="ruby-identifier">x</span> = <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vx</span>
+        <span class="ruby-identifier">y</span> = <span class="ruby-identifier">y</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vy</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">get_neighbors</span><span class="method-args">(x, y) {|x, y, cell_data| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Will return an array of 8 elements, with each element representing one of
+the 8 neighbors for the given x,y cell. Each element of the returned array
+will consist of the x,y cell pair, plus the data stored there, suitable for
+use of the <a href="GridBase.html#M000010">populate</a> method. If the
+neighbor cell is outside the grid, then [nil, nil, OUTSIDE] is used for
+that value. If the given x,y values are not sane, an empty array is
+returned instead.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 251</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_neighbors</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>) <span class="ruby-comment cmt"># :yields: x, y, cell_data</span>
+      <span class="ruby-identifier">data</span> = []
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+
+      <span class="ruby-comment cmt"># The vectors used are x,y pairs between -1 and +1</span>
+      <span class="ruby-comment cmt"># for the given x,y cell. </span>
+      <span class="ruby-comment cmt"># IE: </span>
+      <span class="ruby-comment cmt"># (-1, -1) (0, -1) (1, -1)</span>
+      <span class="ruby-comment cmt"># (-1,  0) (0,  0) (1,  0)</span>
+      <span class="ruby-comment cmt"># (-1,  1) (0,  1) (1,  1)</span>
+      <span class="ruby-comment cmt"># Value of 0,0 is ignored, since that is the cell</span>
+      <span class="ruby-comment cmt"># we are working with! :D</span>
+      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">gx</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">-1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">gy</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">-1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>
+          <span class="ruby-identifier">vx</span> = <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">gx</span>
+          <span class="ruby-identifier">vy</span> = <span class="ruby-identifier">y</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">gy</span>
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">gx</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">gy</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">vx</span>, <span class="ruby-identifier">vy</span>)
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">vx</span>, <span class="ruby-identifier">vy</span>, <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">vx</span>][<span class="ruby-identifier">vy</span>]
+              <span class="ruby-keyword kw">else</span>
+                <span class="ruby-identifier">data</span>.<span class="ruby-identifier">push</span>([<span class="ruby-identifier">vx</span>, <span class="ruby-identifier">vy</span>, <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">vx</span>][<span class="ruby-identifier">vy</span>]])
+              <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+                <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-constant">OUTSIDE</span>
+              <span class="ruby-keyword kw">else</span>
+                <span class="ruby-identifier">data</span>.<span class="ruby-identifier">push</span>([<span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-constant">OUTSIDE</span>])
+              <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">get_row</span><span class="method-args">(x) {|cell_data| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns an array of all values in a given row &#8216;x&#8217;
+value. If given a block, then the data in each cell in the row is passed to
+the block.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 321</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_row</span>(<span class="ruby-identifier">x</span>) <span class="ruby-comment cmt"># :yields: cell_data</span>
+      <span class="ruby-identifier">row</span> = []
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">x</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@size_x</span>)
+        <span class="ruby-identifier">row</span> = <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+        <span class="ruby-identifier">row</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">obj</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">row</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">get_vector</span><span class="method-args">(vector)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convience method to return an x,y vector pair from the GRID_* vector
+constants. Or nil if there is no such constant.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 216</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_vector</span>(<span class="ruby-identifier">vector</span>)
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">vector</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TOP_LEFT</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">-1</span>, <span class="ruby-value">-1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TOP</span>          <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">-1</span>, <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TOP_RIGHT</span>    <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">-1</span>, <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">LEFT</span>         <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">CENTER</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>, <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">RIGHT</span>        <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>, <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">BOTTOM_LEFT</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">1</span>, <span class="ruby-value">-1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">BOTTOM</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">1</span>, <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">BOTTOM_RIGHT</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value">1</span>, <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">is_valid?</span><span class="method-args">(x, y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This checks to see if a given x,y pair are within the boundries of the
+grid.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 93</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">x</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">y</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">x</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@size_x</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@size_y</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">populate</span><span class="method-args">(data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method is used to <a href="GridBase.html#M000010">populate</a>
+multiple cells at once.
+</p>
+<table>
+<tr><td valign="top"><tt>data</tt>:</td><td>This argument must be an array, with each element consisting of three
+values: x, y, and the data to set the cell too.
+
+</td></tr>
+</table>
+<p>
+Example:
+</p>
+<pre>
+  d = [[{4, 4, &quot;X&quot;], [4, 5, &quot;O&quot;], [5, 4, &quot;O&quot;], [5, 5, &quot;X&quot;]]
+  grid.populate(d)
+</pre>
+<p>
+If the object to be populated is nil, it is replaced with the default
+value.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 173</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">populate</span>(<span class="ruby-identifier">data</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Array</span>
+
+      <span class="ruby-identifier">data</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+          <span class="ruby-identifier">obj</span> = <span class="ruby-ivar">@def_value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>] = <span class="ruby-identifier">obj</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">reset_all</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Resets the entire grid to the default value.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 152</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_all</span>()
+      <span class="ruby-ivar">@size_x</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@size_y</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>] = <span class="ruby-ivar">@def_value</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">reset_cell</span><span class="method-args">(x, y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Resets a given x,y cell to the grid default value.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 145</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_cell</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+        <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>] = <span class="ruby-ivar">@def_value</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">resize</span><span class="method-args">(newx, newy)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method will change the grid size. If the <a
+href="GridBase.html#M000003">new</a> size is smaller than the old size,
+data in the cells now &#8216;outside&#8217; the grid is lost. If the grid
+is now larger, <a href="GridBase.html#M000003">new</a> cells are filled
+with the default value given when the grid was first created.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 292</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resize</span>(<span class="ruby-identifier">newx</span>, <span class="ruby-identifier">newy</span>)
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">newx</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">newx</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">newy</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">newy</span>.<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Save old data.</span>
+      <span class="ruby-identifier">c</span> = <span class="ruby-identifier">get_contents</span>()
+
+      <span class="ruby-comment cmt"># Reset grid.</span>
+      <span class="ruby-ivar">@grid</span>.<span class="ruby-identifier">clear</span>()
+      <span class="ruby-ivar">@size_x</span> = <span class="ruby-identifier">newx</span>
+      <span class="ruby-ivar">@size_y</span> = <span class="ruby-identifier">newy</span>
+
+      <span class="ruby-identifier">newx</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@grid</span>.<span class="ruby-identifier">push</span>([])
+        <span class="ruby-identifier">newy</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>].<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@def_value</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">populate</span>(<span class="ruby-identifier">c</span>)
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">set_cell</span><span class="method-args">(x, y, obj)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets a given x,y cell to the data object.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 138</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_cell</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">obj</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+        <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">x</span>][<span class="ruby-identifier">y</span>] = <span class="ruby-identifier">obj</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">traverse</span><span class="method-args">(x, y, vector) {|x, y, cell_data| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method traverses a line of cells, from a given x,y going in
+<tt>vector</tt> direction. The vector arg is one of the <a
+href="../Grid.html">Grid</a>::* traversal constants. This will return an
+array of data of the cells along the traversal path or nil if the original
+x,y is not valid or if the vector is not one of the constant values. The
+first element of the array will be the first cell -after- the x, y cell
+given as the argument. In the returned array, each element will be in the
+format of [x, y, obj], suitable for <a
+href="GridBase.html#M000010">populate</a>(). If a block is given, then each
+x, y, and data is passed to the block, and nil is returned.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+<span class="ruby-comment cmt"># File grid.rb, line 367</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">traverse</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">vector</span>) <span class="ruby-comment cmt"># :yields: x, y, cell_data</span>
+      <span class="ruby-identifier">data</span> = []
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
+        <span class="ruby-identifier">vx</span>, <span class="ruby-identifier">vy</span> = <span class="ruby-identifier">get_vector</span>(<span class="ruby-identifier">vector</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">vx</span>.<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">gx</span> = <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vx</span>
+        <span class="ruby-identifier">gy</span> = <span class="ruby-identifier">y</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vy</span>
+
+        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">is_valid?</span>(<span class="ruby-identifier">gx</span>, <span class="ruby-identifier">gy</span>)
+          <span class="ruby-identifier">obj</span> = <span class="ruby-ivar">@grid</span>[<span class="ruby-identifier">gx</span>][<span class="ruby-identifier">gy</span>]
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+            <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">gx</span>, <span class="ruby-identifier">gy</span>, <span class="ruby-identifier">obj</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">data</span>.<span class="ruby-identifier">push</span>([<span class="ruby-identifier">gx</span>, <span class="ruby-identifier">gy</span>, <span class="ruby-identifier">obj</span>])
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">gx</span> = <span class="ruby-identifier">gx</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vx</span>
+          <span class="ruby-identifier">gy</span> = <span class="ruby-identifier">gy</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vy</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
