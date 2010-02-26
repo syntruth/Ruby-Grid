@@ -1,11 +1,11 @@
-=begin rdoc
-
 Grid Class for Games or whatever else you can think of.
 By Randy Carnahan, released to the Public Domain.
 
 * Version 1.0b  - 7/13/2006
 * Version 1.0   - 7/19/2006 - Last Lua version
 * Version 1.0RB - 9/26/2007 - Ruby Version
+
+Lua Version: http://github.com/syntruth/Lua-Grid
 
 Caveats:
 
@@ -36,4 +36,3 @@ Example:
   g.resize(4, 4)
   g.get_cell(3, 3)
 
-=end
