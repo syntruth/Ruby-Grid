@@ -69,8 +69,8 @@ module Grid
       @grid = []
 
       # Default Grid size is 4x4.
-      sizex = 4 if sizex.class != Fixnum or sizex.nil?
-      sizey = 4 if sizey.class != Fixnum or sizey.nil?
+      sizex = 4 if not sizex.is_a?(Fixnum) or sizex.nil?
+      sizey = 4 if sizey.is_a?(Fixnum) or sizey.nil?
 
       @size_x = sizex
       @size_y = sizey
@@ -92,7 +92,7 @@ module Grid
     # the boundries of the grid.
     def is_valid?(x, y)
 
-      if (x.class != Fixnum or x.nil?) or (y.class != Fixnum or y.nil?)
+      if (not x.is_a?(Fixnum) or x.nil?) or (not y.is_a?(Fixnum) or y.nil?)
         return false
       end
 
@@ -116,7 +116,7 @@ module Grid
     def get_cells(cells) # :yields: cell_data
       data = []
 
-      return data if cells.class != Array
+      return data if not cells.is_a?(Array)
 
       cells.each do |x, y|
         if is_valid?(x, y)
@@ -171,7 +171,7 @@ module Grid
     # If the object to be populated is nil, it is replaced with
     # the default value.
     def populate(data)
-      return if data.class != Array
+      return if not data.is_a?(Array)
 
       data.each do |x, y, obj|
         if is_valid?(x, y)
@@ -290,7 +290,7 @@ module Grid
     # filled with the default value given when the grid was first
     # created.
     def resize(newx, newy)
-      if (newx.class != Fixnum or newx.nil?) or (newy.class != Fixnum or newy.nil?)
+      if (not newx.is_a?(Fixnum) or newx.nil?) or (not newy.is_a?(Fixnum) or newy.nil?)
         return false
       end
 
@@ -320,7 +320,7 @@ module Grid
     # is passed to the block.
     def get_row(x) # :yields: cell_data
       row = []
-      if x.class == Fixnum and (x >= 0 and x < @size_x)
+      if x.is_a?(Fixnum) and (x >= 0 and x < @size_x)
         row = @grid[x]
       end
 
@@ -338,7 +338,7 @@ module Grid
     # is passed to the block.
     def get_column(y) # :yields: cell_data
       col = []
-      if y.class == Fixnum and (y >= 0 and y < @size_y)
+      if y.is_a?(Fixnum) and (y >= 0 and y < @size_y)
         @size_x.times do |x|
           if block_given?
             yield @grid[x][y]
