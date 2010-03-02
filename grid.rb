@@ -130,7 +130,7 @@ module Grid
         end
       end
 
-      return data if not block_given?
+      return block_given? ? nil : data
 
     end
 
@@ -206,7 +206,7 @@ module Grid
         end
       end
 
-      return data if not block_given?
+      return block_given? ? nil : data
 
     end
 
@@ -281,7 +281,7 @@ module Grid
           end
         end
       end
-      return data if not block_given?
+      return block_given? ? nil : data
     end
 
     # This method will change the grid size. If the new size is
@@ -329,7 +329,7 @@ module Grid
           yield obj
         end
       end
-      return row if not block_given?
+      return block_given? ? nil : row
     end
 
     # This method returns an array of all values in a given
@@ -348,7 +348,7 @@ module Grid
         end
       end
 
-      return col if not block_given?
+      return block_given? ?  nil : col
 
     end
 
@@ -386,7 +386,7 @@ module Grid
         end
       end
 
-      return data if not block_given?
+      return block_given? ? nil : data
     end
 
   end
