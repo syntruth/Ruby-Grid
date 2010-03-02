@@ -70,7 +70,7 @@ module Grid
 
       # Default Grid size is 4x4.
       sizex = 4 if not sizex.is_a?(Fixnum) or sizex.nil?
-      sizey = 4 if sizey.is_a?(Fixnum) or sizey.nil?
+      sizey = 4 if not sizey.is_a?(Fixnum) or sizey.nil?
 
       @size_x = sizex
       @size_y = sizey
