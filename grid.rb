@@ -47,14 +47,14 @@ module Grid
   NIL_VALUE = "NIL_VALUE".freeze()
 
   # Traversal Vector Constants
-  TOP_LEFT = 1
-  TOP = 2
-  TOP_RIGHT = 3
-  LEFT = 4
-  CENTER = 5
-  RIGHT = 6
-  BOTTOM_LEFT = 7
-  BOTTOM = 8
+  TOP_LEFT     = 1
+  TOP          = 2
+  TOP_RIGHT    = 3
+  LEFT         = 4
+  CENTER       = 5
+  RIGHT        = 6
+  BOTTOM_LEFT  = 7
+  BOTTOM       = 8
   BOTTOM_RIGHT = 9
 
   # GridBase Class Definition
@@ -80,6 +80,7 @@ module Grid
       # Build the grid and insert the default values.
       @size_x.times do |x|
         @grid.push([])
+
         @size_y.times do |y|
           @grid[x].push(def_value)
         end
@@ -136,16 +137,12 @@ module Grid
 
     # Sets a given x,y cell to the data object.
     def set_cell(x, y, obj)
-      if is_valid?(x, y)
-        @grid[x][y] = obj
-      end
+      @grid[x][y] = obj if is_valid?(x, y)
     end
 
     # Resets a given x,y cell to the grid default value.
     def reset_cell(x, y)
-      if is_valid?(x, y)
-        @grid[x][y] = @def_value
-      end
+      @grid[x][y] = @def_value if is_valid?(x, y)
     end
 
     # Resets the entire grid to the default value.
@@ -190,7 +187,7 @@ module Grid
     # cells are not the default value.
     # Returns +nil+ if a block is given.
     def get_contents(no_default=false) # :yields: x, y, cell_data
-      data = []
+      data     = []
       cell_obj = nil
 
       @size_x.times do |x|
@@ -216,14 +213,14 @@ module Grid
     def get_vector(vector)
       case vector
         when TOP_LEFT     then return -1, -1
-        when TOP          then return -1, 0
-        when TOP_RIGHT    then return -1, 1
-        when LEFT         then return 0, -1
-        when CENTER       then return 0, 0
-        when RIGHT        then return 0, 1
-        when BOTTOM_LEFT  then return 1, -1
-        when BOTTOM       then return 1, 0
-        when BOTTOM_RIGHT then return 1, 1
+        when TOP          then return -1,  0
+        when TOP_RIGHT    then return -1,  1
+        when LEFT         then return  0, -1
+        when CENTER       then return  0,  0
+        when RIGHT        then return  0,  1
+        when BOTTOM_LEFT  then return  1, -1
+        when BOTTOM       then return  1,  0
+        when BOTTOM_RIGHT then return  1,  1
       else
         return nil, nil
       end
@@ -232,6 +229,7 @@ module Grid
     # Gets a cell's neighbor in a given vector.
     def get_neighbor(x, y, vector)
       vx, vy = get_vector(vector)
+
       if vx and vy
         x = x + vx
         y = y + vy
@@ -250,7 +248,8 @@ module Grid
     # is returned instead.
     def get_neighbors(x, y) # :yields: x, y, cell_data
       data = []
-      return data if not is_valid?(x, y)
+
+      return data unless is_valid?(x, y)
 
       # The vectors used are x,y pairs between -1 and +1
       # for the given x,y cell. 
@@ -264,6 +263,7 @@ module Grid
         for gy in -1..1
           vx = x + gx
           vy = y + gy
+
           unless gx == 0 and gy == 0
             if is_valid?(vx, vy)
               if block_given?
@@ -281,6 +281,7 @@ module Grid
           end
         end
       end
+
       return block_given? ? nil : data
     end
 
@@ -299,16 +300,20 @@ module Grid
 
       # Reset grid.
       @grid.clear()
+
+      # Set the new sizes.
       @size_x = newx
       @size_y = newy
 
       newx.times do |x|
         @grid.push([])
+
         newy.times do |y|
           @grid[x].push(@def_value)
         end
       end
 
+      # Insert the old contents.
       populate(c)
 
       return true
@@ -320,6 +325,7 @@ module Grid
     # is passed to the block.
     def get_row(x) # :yields: cell_data
       row = []
+
       if x.is_a?(Fixnum) and (x >= 0 and x < @size_x)
         row = @grid[x]
       end
@@ -329,6 +335,7 @@ module Grid
           yield obj
         end
       end
+
       return block_given? ? nil : row
     end
 
@@ -338,6 +345,7 @@ module Grid
     # is passed to the block.
     def get_column(y) # :yields: cell_data
       col = []
+
       if y.is_a?(Fixnum) and (y >= 0 and y < @size_y)
         @size_x.times do |x|
           if block_given?
@@ -349,7 +357,6 @@ module Grid
       end
 
       return block_given? ?  nil : col
-
     end
 
     # This method traverses a line of cells, from a given x,y 
@@ -369,18 +376,21 @@ module Grid
 
       if is_valid?(x, y)
         vx, vy = get_vector(vector)
-        return data if vx.nil?
+
+        return data unless vx and vy
 
         gx = x + vx
         gy = y + vy
 
         while is_valid?(gx, gy)
           obj = @grid[gx][gy]
+
           if block_given?
             yield gx, gy, obj
           else
             data.push([gx, gy, obj])
           end
+
           gx = gx + vx
           gy = gy + vy
         end
@@ -388,7 +398,6 @@ module Grid
 
       return block_given? ? nil : data
     end
-
   end
 
   # Wrapper for GridBase.new()
@@ -399,10 +408,21 @@ module Grid
   # Yields each of the vector constants in turn, from top-left
   # to bottom-right.
   def Grid.get_all_vectors() # :yields: vector_constant
-    [TOP_LEFT, TOP, TOP_RIGHT, LEFT, CENTER, RIGHT,
-      BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT].each do |v|
-        yield v # :yields: vector_constant
+    [TOP_LEFT, 
+     TOP, 
+     TOP_RIGHT, 
+     LEFT, 
+     CENTER, 
+     RIGHT,
+     BOTTOM_LEFT, 
+     BOTTOM, 
+     BOTTOM_RIGHT
+    ].each do |v|
+      yield v # :yields: vector_constant
     end
   end
 
+# End module
 end
+
+
